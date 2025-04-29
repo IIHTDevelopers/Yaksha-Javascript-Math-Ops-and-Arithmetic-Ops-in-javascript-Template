@@ -73,7 +73,7 @@ function writeOutputFiles(result, fileType) {
         xml: "./yaksha-test-cases.xml"
     };
 
-    let resultStatus = result.status === 'Pass' ? 'PASS' : 'FAIL';
+    let resultStatus = result.status === 'Passed' ? 'PASS' : 'FAIL';
     let output = `${result.methodName}=${resultStatus}\n`;
 
     let outputFilePath = outputFiles[fileType];
@@ -95,7 +95,7 @@ function checkMathObjectUsage() {
         return;
     }
 
-    let result = 'Pass';
+    let result = 'Passed';
     let feedback = [];
 
     // Regular expressions to check for Math methods in the code
@@ -124,15 +124,15 @@ function checkMathObjectUsage() {
 
     // Check if any Math method is not used
     if (!sqrtUsed) {
-        result = 'Fail';
+        result = 'Failed';
         feedback.push("You must use Math.sqrt method.");
     }
     if (!powUsed) {
-        result = 'Fail';
+        result = 'Failed';
         feedback.push("You must use Math.pow method.");
     }
     if (!randomUsed) {
-        result = 'Fail';
+        result = 'Failed';
         feedback.push("You must use Math.random method.");
     }
 
@@ -143,7 +143,7 @@ function checkMathObjectUsage() {
         'MathObjectUsage',
         'functional',
         1,
-        result === 'Pass' ? 1 : 0,
+        result === 'Passed' ? 1 : 0,
         result,
         true,
         feedback.join(', ')
@@ -152,7 +152,7 @@ function checkMathObjectUsage() {
 
 // Function to check if arithmetic operations are used
 function checkArithmeticOperations(ast) {
-    let result = 'Pass';
+    let result = 'Passed';
     let feedback = [];
     let operationsUsed = { addition: false, subtraction: false, multiplication: false, division: false };
 
@@ -172,7 +172,7 @@ function checkArithmeticOperations(ast) {
 
     for (let operation in operationsUsed) {
         if (!operationsUsed[operation]) {
-            result = 'Fail';
+            result = 'Failed';
             feedback.push(`You must use ${operation} operation.`);
         }
     }
@@ -184,7 +184,7 @@ function checkArithmeticOperations(ast) {
         'ArithmeticOperations',
         'functional',
         1,
-        result === 'Pass' ? 1 : 0,
+        result === 'Passed' ? 1 : 0,
         result,
         true,
         feedback.join(', ')
@@ -229,7 +229,7 @@ function gradeAssignment() {
         console.log(resultsToSend);
 
         // Log the test result in yellow for pass and red for fail using ANSI codes
-        if (testCaseResult.status === 'Pass') {
+        if (testCaseResult.status === 'Passed') {
             console.log(`\x1b[33m${testCaseResult.methodName}: Pass\x1b[0m`); // Yellow for pass
         } else {
             console.log(`\x1b[31m${testCaseResult.methodName}: Fail\x1b[0m`); // Red for fail
